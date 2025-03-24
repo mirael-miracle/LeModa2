@@ -17,6 +17,9 @@ COPY . .
 RUN useradd -m -r appuser && chown appuser:appuser /store
 USER appuser
 
+# Выводим DATABASE_URL для отладки
+RUN echo "DATABASE_URL from env:" && env | grep DATABASE_URL
+
 RUN python manage.py migrate --noinput
 RUN python manage.py collectstatic --noinput
 
