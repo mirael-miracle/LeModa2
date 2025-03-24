@@ -119,7 +119,7 @@ CACHES = {
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+    'default': os.getenv('DATABASE_URL')
 }
 
 # Password validation
