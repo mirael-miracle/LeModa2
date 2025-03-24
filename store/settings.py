@@ -119,7 +119,9 @@ CACHES = {
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
+    'default': dj_database_url.parse(
+        env.str('DATABASE_URL')
+    )
 }
 
 # Password validation
