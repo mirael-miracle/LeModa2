@@ -1,15 +1,17 @@
 import uuid
 from datetime import timedelta
 
-from celery import shared_task
+from django.core.mail import send_mail
 from django.utils.timezone import now
 
 from users.models import EmailVerification, User
 
 
-@shared_task
 def send_email_verification(username):
-    user = User.objects.get(username=username)
-    expiration = now() + timedelta(hours=48)
-    record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
-    record.send_verification_email()
+    send_mail(
+        'Verify your email',
+        'Click this link to verify...',
+        'from@example.com',
+        ['to@example.com'],
+        fail_silently=False,
+    )

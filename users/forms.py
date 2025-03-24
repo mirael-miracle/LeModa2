@@ -42,7 +42,7 @@ class UserRegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=True)
-        send_email_verification.delay(user.username)
+        send_email_verification(user.username)
         return user
 
 
