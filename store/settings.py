@@ -100,15 +100,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'store.wsgi.application'
 
 # Redis
-
-REDIS_HOST = 'redis'
-REDIS_PORT = '6379'
-
 # Cache
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
+        'LOCATION': os.getenv('REDIS_URL', 'redis://redis.railway.internal:6379/1'),
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient'
         }
