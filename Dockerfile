@@ -13,7 +13,11 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["sysctl", "vm.overcommit_memory=1"]
+RUN python manage.py collectstatic --noinput
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "LeModa.wsgi:application"]
 
 ENV C_FORCE_ROOT=true
 
