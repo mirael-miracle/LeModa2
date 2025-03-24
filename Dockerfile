@@ -13,6 +13,10 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+# create user
+RUN useradd -m -r appuser && chown appuser:appuser /store
+USER appuser
+
 RUN python manage.py migrate --noinput
 RUN python manage.py collectstatic --noinput
 
