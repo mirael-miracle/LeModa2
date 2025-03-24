@@ -101,8 +101,8 @@ WSGI_APPLICATION = 'store.wsgi.application'
 
 # Redis
 
-REDIS_HOST = os.getenv('REDIS_HOST')
-REDIS_PORT = os.getenv('REDIS_PORT')
+REDIS_HOST = 'redis'
+REDIS_PORT = '6379'
 
 # Cache
 CACHES = {
