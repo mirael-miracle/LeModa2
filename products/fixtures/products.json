@@ -1,0 +1,94 @@
+[
+{
+    "model": "products.productcategory",
+    "pk": 1,
+    "fields": {
+        "name": "Clothes",
+        "description": ""
+    }
+},
+{
+    "model": "products.productcategory",
+    "pk": 2,
+    "fields": {
+        "name": "New products",
+        "description": ""
+    }
+},
+{
+    "model": "products.productcategory",
+    "pk": 3,
+    "fields": {
+        "name": "Shoes",
+        "description": ""
+    }
+},
+{
+    "model": "products.productcategory",
+    "pk": 4,
+    "fields": {
+        "name": "Accessories",
+        "description": ""
+    }
+},
+{
+    "model": "products.productcategory",
+    "pk": 5,
+    "fields": {
+        "name": "Gifts",
+        "description": ""
+    }
+},
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "name": "Nike Bagpack",
+        "description": "Some text,Some text,Some text,Some text,Some text,",
+        "price": "50.00",
+        "stripe_product_price_id": null,
+        "quantity": 15,
+        "image": "product_images/Black-Nike-Heritage-backpack_gwffvto.png",
+        "category": 4
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "name": "The North Face Jacket",
+        "description": "Convenient and pretty jacket with unique design",
+        "price": "500.00",
+        "stripe_product_price_id": null,
+        "quantity": 0,
+        "image": "product_images/Blue-jacket-The-North-Face_YVz7WLS.png",
+        "category": 1
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "name": "Adidas hoodie",
+        "description": "Soft, comfortable and very warm hoodie",
+        "price": "300.00",
+        "stripe_product_price_id": null,
+        "quantity": 0,
+        "image": "product_images/Adidas-hoodie_vuk7Nk5.png",
+        "category": 1
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "name": "Nike Air Max 90",
+        "description": "Lace up and feel the legacy.",
+        "price": "130.00",
+        "stripe_product_price_id": "price_1NafCGDz8YMbqdAOzbUZy8Oa",
+        "quantity": 1,
+        "image": "product_images/Screenshot_from_2023-08-02_16-34-29.png",
+        "category": 3
+    }
+}
+]

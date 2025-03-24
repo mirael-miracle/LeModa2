@@ -1,0 +1,44 @@
+version: '3.10'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/store
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - celery
+    env_file:
+      - ./.env
+  db:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+  celery:
+    build: .
+    volumes:
+      - .:/store
+    command: celery -A store worker -l info
+    depends_on:
+      - redis
+  stripe:
+    image: stripe/stripe-cli
+    command: listen --api-key ${STRIPE_SECRET_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to web:8000/webhook/
+    depends_on:
+      - web
+    env_file:
+      - ./.env
+volumes:
+  postgres_data:
+  redis-data:
