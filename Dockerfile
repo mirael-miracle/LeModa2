@@ -23,7 +23,3 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "LeModa.wsgi:application"]
-
-ENV C_FORCE_ROOT=true
-
-CMD celery -A store worker -l info
