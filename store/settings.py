@@ -120,7 +120,7 @@ CACHES = {
 
 DATABASES = {
     'default': dj_database_url.parse(
-        os.getenv('DATABASE_URL')
+        'postgresql://postgres:yQzNXObpgkJKTRMGteCarSEZVkjwIbGh@postgres.railway.internal:5432/railway'
     )
 }
 
