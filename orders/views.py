@@ -34,13 +34,17 @@ class OrderCreateView(CSRFExemptMixin, CommonMixin, CreateView):
     def post(self, request, *args, **kwargs):
         super(OrderCreateView, self).post(request, *args, **kwargs)
         baskets = Basket.objects.filter(user=self.request.user)
+        if not baskets.exists():
+            return HttpResponse('Basket is empty', status=HTTPStatus.BAD_REQUEST)
+        
+        domain = f"{request.scheme}://{request.get_host()}"
 
         checkout_session = stripe.checkout.Session.create(
             line_items=baskets.stripe_products(),
             metadata={'order_id': self.object.id},
             mode='payment',
-            success_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_success')),
-            cancel_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_canceled'))
+            success_url=f"{domain}{reverse('orders:order_success')}",
+            cancel_url=f"{domain}{reverse('orders:order_canceled')}"
         )
         return HttpResponseRedirect(checkout_session.url, status=HTTPStatus.SEE_OTHER)
 
