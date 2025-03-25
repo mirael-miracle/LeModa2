@@ -17,6 +17,8 @@ COPY . .
 RUN useradd -m -r appuser && chown appuser:appuser /store
 USER appuser
 
+RUN mkdir -p /store/media && chown appuser:appuser /store/media
+
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
