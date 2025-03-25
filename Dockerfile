@@ -15,8 +15,10 @@ COPY . .
 
 # create user
 RUN useradd -m -r appuser && \
-    mkdir -p /store/media && \
-    chown -R appuser:appuser /store
+    mkdir -p /store/media/product_images && \
+    chown -R appuser:appuser /store && \
+    chmod -R 755 /store/media
+
 USER appuser
 
 RUN python manage.py collectstatic --noinput
