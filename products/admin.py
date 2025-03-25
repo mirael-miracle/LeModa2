@@ -20,6 +20,7 @@ class ProductAdmin(admin.ModelAdmin):
     def get_html_photo(self, object):  # object refers to an object of the women class
         if object.image:
             return mark_safe(f'<img src="{object.image.url}" width=60 height = 60>')
+        return "No image"
 
     get_html_photo.short_description = 'Image'
 
