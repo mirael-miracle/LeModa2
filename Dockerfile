@@ -14,10 +14,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # create user
-RUN useradd -m -r appuser && \
-    mkdir -p /store/media/product_images && \
-    chown -R appuser:appuser /store && \
-    chmod -R 755 /store/media
+RUN useradd -m -r appuser && chown -R appuser:appuser /store
 
 USER appuser
 
@@ -25,4 +22,4 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "python manage.py makemigrations --noinput && python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 store.wsgi:application"]
+CMD ["sh", "-c", "mkdir -p /store/media/product_images && chmod -R 755 /store/media && python manage.py makemigrations --noinput && python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 store.wsgi:application"]
