@@ -14,6 +14,8 @@ from environs import Env
 import socket
 from pathlib import Path
 import dj_database_url
+import cloudinary
+
 
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
@@ -156,8 +158,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/store/staticfiles'
 STATICFILES_DIRS = ['/store/static']
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -216,5 +218,12 @@ SECURE_HSTS_PRELOAD = os.getenv("DJANGO_SECURE_HSTS_PRELOAD")
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/store/media'
+# cloudinary
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = f'https://res.cloudinary.com/{os.getenv("CLOUDINARY_CLOUD_NAME")}/'
