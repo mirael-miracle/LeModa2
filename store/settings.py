@@ -229,4 +229,4 @@ cloudinary.config(
 )
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = f'https://res.cloudinary.com/{os.getenv("CLOUDINARY_CLOUD_NAME")}/'
+MEDIA_URL = 'https://res.cloudinary.com/dhyziwjse/image/upload/'
