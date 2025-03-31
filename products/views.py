@@ -25,39 +25,26 @@ class ProductsView(CommonMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProductsView, self).get_context_data(**kwargs)
-        context['category'] = ProductCategory.objects.all()
+        context['categories'] = ProductCategory.objects.all()
+        context['current_sort_by'] = self.request.GET.get('sort_by', 'name')
+        context['category_id'] = self.kwargs.get('category_id')
         return context
 
     def get_queryset(self):
         queryset = super(ProductsView, self).get_queryset()
         category_id = self.kwargs.get('category_id')
-        return queryset.filter(category_id=category_id) if category_id else queryset
+        sort_by = self.request.GET.get('sort_by', 'name')
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+        
+        valid_sort_fields = ['name', '-name', 'price', '-price', 'category__name', '-category__name']
 
-
-# def products(request):
-#     context = {
-#         'title': 'Store - Catalog',
-#         'products': Product.objects.all(),
-#         'category': ProductCategory.objects.all(),
-#     }
-#     return render(request, 'products/products.html', context)
-
-# class ProductsCategoryView(ListView):
-#     model = Product
-#     template_name = 'products/products.html'
-#     context_object_name = 'products'
-#     allow_empty = False
-#     paginate_by = 3
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super(ProductsCategoryView, self).get_context_data(**kwargs)
-#         context['category'] = ProductCategory.objects.all()
-#         context['title'] = 'Store-Catalog'
-#         return context
-#
-#     def get_queryset(self):
-#         return Product.objects.filter(category_id=self.kwargs['category_id'])
-
+        if sort_by in valid_sort_fields:
+            queryset = queryset.order_by(sort_by)
+        else:
+             queryset = queryset.order_by('name')
+             
+        return queryset
 
 @login_required
 def basket_add(request, product_id):
